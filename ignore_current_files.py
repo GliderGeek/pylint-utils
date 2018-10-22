@@ -9,7 +9,7 @@ This script runs pylint, checks which errors are present and suggests an ignore 
 
 
 import subprocess
-
+import os
 
 code_path = 'opensoar'
 
@@ -22,6 +22,10 @@ code_path = 'opensoar'
 
 
 def get_symbols(code_path: str):
+
+    if not os.path.exists(code_path):
+        raise IOError('Invalid code_path')
+
     result = subprocess.check_output(['pylint', "--msg-template='# {path} {symbol}'", code_path, '--exit-zero'])
 
     symbols = {}
@@ -39,17 +43,20 @@ def get_symbols(code_path: str):
     return symbols
 
 
+def print_pylintrc(symbols):
+    if symbols:
+
+        print('[MASTER]')
+        for i, (symbol, file_names) in enumerate(symbols.items()):
+            for j, file_name in enumerate(file_names):
+                if i == 0 and j == 0:
+                    print("ignore={0:30} # {1}".format(f'{file_name},', symbol))
+                elif i != 0 and j == 0:
+                    print("")
+                    print("       {0:30} # {1}".format(f'{file_name},', symbol))
+                else:
+                    print("       {0:30}".format(f'{file_name},'))
+
+
 symbols = get_symbols(code_path)
-if symbols:
-
-    print('[MASTER]')
-    for i, (symbol, file_names) in enumerate(symbols.items()):
-        for j, file_name in enumerate(file_names):
-            if i == 0 and j == 0:
-                print("ignore={0:30} # {1}".format(f'{file_name},', symbol))
-            elif i != 0 and j == 0:
-                print("")
-                print("       {0:30} # {1}".format(f'{file_name},', symbol))
-            else:
-                print("       {0:30}".format(f'{file_name},'))
-
+print_pylintrc(symbols)

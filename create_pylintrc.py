@@ -55,6 +55,10 @@ def get_disabled_symbols(pylintrc_path: str):
 
 def get_error_symbols(code_path):
     symbols = set()
+
+    if not os.path.exists(code_path):
+        raise IOError('Invalid path')
+
     result = subprocess.check_output(['pylint', "--msg-template='# {msg_id}: {symbol}'", code_path, '--exit-zero'])
 
     for line in result.decode('utf-8').splitlines():
@@ -65,20 +69,19 @@ def get_error_symbols(code_path):
     return symbols
 
 
-def write_file(pylintrc_path: str, symbols: set):
+def print_pylintrc(symbols: set):
 
     # todo: distinguish between new symbols and already existing symbols
 
-    with open(pylintrc_path, 'w') as f:
-        f.write('[MESSAGES CONTROL]\n')
-        for i, symbol in enumerate(symbols):
-            if i == 0:
-                f.write(f'disable={symbol},\n')
-            else:
-                f.write(f'        {symbol},\n')
+    print('[MESSAGES CONTROL]')
+    for i, symbol in enumerate(symbols):
+        if i == 0:
+            print(f'disable={symbol},')
+        else:
+            print(f'        {symbol},')
 
 
 disabled_symbols = get_disabled_symbols(pylintrc_path)
 error_symbols = get_error_symbols(code_path)
 all_symbols = disabled_symbols | error_symbols
-write_file(pylintrc_path, all_symbols)
+print_pylintrc(all_symbols)
