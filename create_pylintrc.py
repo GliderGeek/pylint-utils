@@ -11,8 +11,20 @@ import subprocess
 pylintrc_path = '.pylintrc'
 code_path = 'opensoar'
 
+# todo: add check on current file (same defaults as pylint)
+# accept pylintrc flag for location if different
+
+# output to screen, not to disc
+
+# output can be piped if wanted
+
+# todo: make click cli
+
+
 def get_disabled_symbols(pylintrc_path: str):
     # todo: pylint use argparse for reading in file, could be used here too
+
+    # todo: also parse other parts
 
     symbols = set()
     if os.path.exists(pylintrc_path):
@@ -40,6 +52,7 @@ def get_disabled_symbols(pylintrc_path: str):
 
     return symbols
 
+
 def get_error_symbols(code_path):
     symbols = set()
     result = subprocess.check_output(['pylint', "--msg-template='# {msg_id}: {symbol}'", code_path, '--exit-zero'])
@@ -51,15 +64,19 @@ def get_error_symbols(code_path):
 
     return symbols
 
+
 def write_file(pylintrc_path: str, symbols: set):
+
+    # todo: distinguish between new symbols and already existing symbols
+
     with open(pylintrc_path, 'w') as f:
         f.write('[MESSAGES CONTROL]\n')
-        f.write('disable=')
         for i, symbol in enumerate(symbols):
-            if i==0:
-                f.write(f'{symbol},\n')
+            if i == 0:
+                f.write(f'disable={symbol},\n')
             else:
-                f.write(f'\t{symbol},\n')
+                f.write(f'        {symbol},\n')
+
 
 disabled_symbols = get_disabled_symbols(pylintrc_path)
 error_symbols = get_error_symbols(code_path)
