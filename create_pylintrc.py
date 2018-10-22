@@ -26,7 +26,6 @@ def get_disabled_symbols(pylintrc_path: str):
 
     # todo: also parse other parts
 
-
     symbols = set()
     if os.path.exists(pylintrc_path):
         with open(pylintrc_path) as f:
