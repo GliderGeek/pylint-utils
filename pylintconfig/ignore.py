@@ -1,5 +1,5 @@
 # This command is not yet finished and should not be connected to the cli.
-# In order for this to work properly, the existing pylintrc needs to be found and parsed.
+# In order for this to work properly, the existing pylintrc file needs to be found and parsed.
 
 import os
 import subprocess
