@@ -11,9 +11,12 @@ pip install pylintrc
 
 # Basic usage
 ```
-$ pylintrc disable package
+$ pylintrc disable MODULES_OR_PACKAGES
 ```
 
+Or just type `pylintrc disable --help` for instructions
+
 # Future plans
+- Add tests
 - Load current pylintrc file
-- Add ignore command, which ignores specific files
+- Add ignore command, which make it easy to ignore specific files
