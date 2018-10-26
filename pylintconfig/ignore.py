@@ -1,16 +1,12 @@
 # This command is not yet finished and should not be connected to the cli.
 # In order for this to work properly, the existing pylintrc file needs to be found and parsed.
 
-import os
 import subprocess
 
 import click
 
 
 def _get_files_per_error(code_path: str) -> dict:
-
-    if not os.path.exists(code_path):
-        raise IOError('Invalid code_path')
 
     result = subprocess.check_output(['pylint', "--msg-template='# {path} {symbol}'", code_path, '--exit-zero'])
 
@@ -45,7 +41,7 @@ def _print_pylintrc_content(errors: dict):
 
 
 @click.command()
-@click.argument('modules_or_packages')
+@click.argument('modules_or_packages', type=click.Path(exists=True))
 def ignore(modules_or_packages):
     """
     Run pylint and output the contents of a pylintrc file with all error files explicitly ignored.

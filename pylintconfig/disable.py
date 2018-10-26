@@ -1,4 +1,3 @@
-import os
 import subprocess
 
 import click
@@ -6,9 +5,6 @@ import click
 
 def _get_current_errors(code_path: str) -> set:
     symbols = set()
-
-    if not os.path.exists(code_path):
-        raise IOError('Invalid path')
 
     result = subprocess.check_output(['pylint', "--msg-template='# {msg_id}: {symbol}'", code_path, '--exit-zero'])
 
@@ -30,7 +26,7 @@ def _print_pylintrc_content(symbols: set):
 
 
 @click.command()
-@click.argument('modules_or_packages')
+@click.argument('modules_or_packages', type=click.Path(exists=True))
 def disable(modules_or_packages):
     """
     Run pylint and output the contents of a pylintrc file with all errors explicitly disabled.
