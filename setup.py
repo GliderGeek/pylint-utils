@@ -1,9 +1,12 @@
 from setuptools import setup, find_packages
 
-exec(open('pylintrc/version.py').read())
+exec(open('pylintconfig/version.py').read())
+
+with open('readme.md', 'r') as f:
+    readme = f.read()
 
 setup(
-    name='pylintrc',
+    name='pylintconfig',
     version=__version__,
     packages=find_packages(),
     long_description=readme,
@@ -14,6 +17,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        pylintrc=pylintrc.pylintrc:pylintrc
+        pylintconfig=pylintconfig.pylintconfig:pylintconfig
     ''',
 )
