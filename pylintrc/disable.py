@@ -24,8 +24,7 @@ def _print_pylintrc_content(symbols: set):
     print('[MESSAGES CONTROL]')
     for i, symbol in enumerate(symbols):
         if i == 0:
-            pri
-            nt(f'disable={symbol},')
+            print(f'disable={symbol},')
         else:
             print(f'        {symbol},')
 
