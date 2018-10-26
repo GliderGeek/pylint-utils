@@ -1,7 +1,9 @@
 ## Unreleased
 ### Added
+- changelog
 
 ### Changed
+- use click path argument
 
 ### Deprecated
 
