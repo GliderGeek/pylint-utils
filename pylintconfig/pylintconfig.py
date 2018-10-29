@@ -1,5 +1,7 @@
 import click
+
 from .disable import disable
+from .ignore import ignore
 
 
 @click.group()
@@ -9,3 +11,4 @@ def pylintconfig():
 
 
 pylintconfig.add_command(disable)
+pylintconfig.add_command(ignore)

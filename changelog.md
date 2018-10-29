@@ -1,6 +1,7 @@
 ## Unreleased
 ### Added
 - changelog
+- ignore command
 
 ### Changed
 - use click path argument
