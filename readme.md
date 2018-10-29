@@ -25,7 +25,7 @@ pylintconfig disable MODULES_OR_PACKAGES > .pylintrc
 pylintconfig ignore MODULES_OR_PACKAGES
 ```
 
-4. Add this list to .pylintrc and you have are ready to go:
+4. Add this list to .pylintrc and you are ready to go:
 - Pylint does not give errors and can be added to you CI runner
 - The ignore list provides a todo list for files which need some work
 - New errors will present itself if not in the ignore list or not explicitly disabled.
