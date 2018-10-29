@@ -5,6 +5,7 @@
 
 ### Changed
 - use click path argument
+- use click.echo
 
 ### Deprecated
 

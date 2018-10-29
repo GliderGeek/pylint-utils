@@ -10,16 +10,26 @@ pip install pylintconfig
 ```
 
 # Basic usage
-```
-pylintconfig disable MODULES_OR_PACKAGES
-```
-Or when you want to immediately save the config:
+
+1. Generate a configuration which explicitly disables all current pylint errors:
 
 ```
 pylintconfig disable MODULES_OR_PACKAGES > .pylintrc
 ```
 
+2. Prune this list such that the usefull errors are enabled.
+
+3. Generate an ignore list which explicitly ignores all files with errors:
+
+```
+pylintconfig ignore MODULES_OR_PACKAGES
+```
+
+4. Add this list to .pylintrc and you have are ready to go:
+- Pylint does not give errors and can be added to you CI runner
+- The ignore list provides a todo list for files which need some work
+- New errors will present itself if not in the ignore list or not explicitly disabled.
+
 # Future plans
 - Add tests
-- Load current pylintrc file
-- Add ignore command, which make it easy to ignore specific files
+- Load current pylintrc file and combine it with new 
